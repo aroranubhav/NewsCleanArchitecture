@@ -3,13 +3,16 @@ package com.maxi.newscleanarchitecture
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.maxi.newscleanarchitecture.databinding.ActivityNewsBinding
 
-class MainActivity : AppCompatActivity() {
+class NewsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityNewsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityNewsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }
