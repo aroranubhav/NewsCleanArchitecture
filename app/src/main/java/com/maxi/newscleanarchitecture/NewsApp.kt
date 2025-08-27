@@ -24,7 +24,7 @@ class NewsApp : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        NewsRefreshScheduler.scheduleNews(workManager)
+        NewsRefreshScheduler.scheduleNewsRefresh(workManager)
     }
 
 }

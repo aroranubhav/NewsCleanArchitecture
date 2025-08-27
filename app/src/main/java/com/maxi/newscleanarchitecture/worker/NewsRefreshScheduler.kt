@@ -14,7 +14,7 @@ object NewsRefreshScheduler {
      */
     private const val UNIQUE_WORK_NAME = "DailyNewsSyncWorker"
 
-    fun scheduleNews(workManager: WorkManager) {
+    fun scheduleNewsRefresh(workManager: WorkManager) {
         val workRequest = PeriodicWorkRequestBuilder<NewsRefreshWorker>(
             3,
             TimeUnit.HOURS
