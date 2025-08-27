@@ -8,7 +8,7 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> {
         val response = apiCall()
         Resource.Success(response)
     } catch (e: ApiException) {
-        Resource.ApiError(e.errorCode, e.errorMessage)
+        Resource.ApiError(e.message)
     } catch (e: IOException) {
         Resource.IOError
     } catch (e: Exception) {
