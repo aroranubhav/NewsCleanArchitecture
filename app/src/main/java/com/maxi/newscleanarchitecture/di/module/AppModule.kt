@@ -2,6 +2,7 @@ package com.maxi.newscleanarchitecture.di.module
 
 import android.content.Context
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.maxi.newscleanarchitecture.BuildConfig
 import com.maxi.newscleanarchitecture.common.DefaultDispatcherProvider
 import com.maxi.newscleanarchitecture.common.DefaultNetworkConnectivityHelper
@@ -114,6 +115,13 @@ object AppModule {
         database: NewsDatabase
     ): NewsDao =
         database.newDao()
+
+    @Provides
+    @Singleton
+    fun provideWorkManager(
+        @ApplicationContext context: Context
+    ): WorkManager =
+        WorkManager.getInstance(context)
 
     @Provides
     @Singleton
