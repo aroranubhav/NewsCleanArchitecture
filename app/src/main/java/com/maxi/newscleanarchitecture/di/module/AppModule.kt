@@ -6,6 +6,7 @@ import com.maxi.newscleanarchitecture.BuildConfig
 import com.maxi.newscleanarchitecture.common.DefaultDispatcherProvider
 import com.maxi.newscleanarchitecture.common.DefaultNetworkConnectivityHelper
 import com.maxi.newscleanarchitecture.common.DispatcherProvider
+import com.maxi.newscleanarchitecture.common.FirstLaunchManager
 import com.maxi.newscleanarchitecture.common.NetworkConnectivityHelper
 import com.maxi.newscleanarchitecture.data.local.NewsDatabase
 import com.maxi.newscleanarchitecture.data.local.dao.NewsDao
@@ -32,6 +33,7 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
+    @BaseUrl
     fun provideBaseUrl(): String =
         BASE_URL
 
@@ -124,5 +126,12 @@ object AppModule {
         @ApplicationContext context: Context
     ): NetworkConnectivityHelper =
         DefaultNetworkConnectivityHelper(context)
+
+    @Provides
+    @Singleton
+    fun provideFirstLaunchManager(
+        @ApplicationContext context: Context
+    ): FirstLaunchManager =
+        FirstLaunchManager(context)
 
 }
