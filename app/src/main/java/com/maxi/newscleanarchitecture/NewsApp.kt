@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import com.maxi.newscleanarchitecture.worker.NewsSyncScheduler
+import com.maxi.newscleanarchitecture.worker.NewsRefreshScheduler
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class NewsApp : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        NewsSyncScheduler.scheduleNews(workManager)
+        NewsRefreshScheduler.scheduleNews(workManager)
     }
 
 }
