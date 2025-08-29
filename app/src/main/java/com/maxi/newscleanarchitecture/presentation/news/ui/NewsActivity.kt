@@ -56,7 +56,14 @@ class NewsActivity : AppCompatActivity() {
                 )
             )
         }
+
         observeDataAndUpdateUi()
+
+        binding.srlNews.setOnRefreshListener {
+            lifecycleScope.launch {
+                viewModel.refreshNews()
+            }
+        }
     }
 
     private fun observeDataAndUpdateUi() {
@@ -88,6 +95,11 @@ class NewsActivity : AppCompatActivity() {
                         }
                     }
                 }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.isRefreshing.collect { isRefreshing ->
+                binding.srlNews.isRefreshing = isRefreshing
             }
         }
     }

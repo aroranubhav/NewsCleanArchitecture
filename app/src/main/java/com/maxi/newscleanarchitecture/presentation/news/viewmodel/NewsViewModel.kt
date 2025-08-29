@@ -31,6 +31,9 @@ class NewsViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UiState<List<Article>>>(UiState.Loading)
     val uiState = _uiState.asStateFlow()
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing = _isRefreshing.asStateFlow()
+
     init {
         performFirstLaunchNewsRefresh()
     }
@@ -58,11 +61,14 @@ class NewsViewModel @Inject constructor(
     }
 
     suspend fun refreshNews(): Resource<Unit> {
-        _uiState.value = UiState.Loading
+        Log.d(NewsViewModelTAG, "new refreshed")
+        _isRefreshing.value = true
         val deferred = viewModelScope.async(dispatcherProvider.io) {
             useCase.refreshNews()
         }
-        return deferred.await()
+        val deferredResult = deferred.await()
+        _isRefreshing.value = false
+        return deferredResult
     }
 
     private fun getNews() {
