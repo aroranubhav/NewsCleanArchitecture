@@ -69,6 +69,9 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    //swipe refresh layout
+    implementation(libs.androidx.swipe.refresh)
+
     //lifecycle
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.runtime)
