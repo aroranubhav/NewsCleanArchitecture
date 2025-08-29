@@ -5,9 +5,11 @@ import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
 import com.maxi.newscleanarchitecture.domain.usecase.refreshnews.RefreshNewsUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import java.io.IOException
 
 @HiltWorker
 class NewsRefreshWorker @AssistedInject constructor(
@@ -20,9 +22,14 @@ class NewsRefreshWorker @AssistedInject constructor(
         return try {
             useCase.refreshNews()
             Result.success()
-        } catch (e: Exception) {
-            Log.e(NewsRefreshWorkerTAG, "doWork: ${e.message}")
+        } catch (e: IOException) {
+            Log.e(NewsRefreshWorkerTAG, "Error while refreshing news, $e")
             Result.retry()
+        } catch (e: Exception) {
+            Log.e(NewsRefreshWorkerTAG, "Error while refreshing news, $e")
+            Result.failure(
+                workDataOf("error" to e.localizedMessage)
+            )
         }
     }
 }
