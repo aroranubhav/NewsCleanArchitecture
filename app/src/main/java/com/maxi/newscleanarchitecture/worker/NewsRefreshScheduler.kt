@@ -1,10 +1,13 @@
 package com.maxi.newscleanarchitecture.worker
 
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import java.util.concurrent.TimeUnit
 
 object NewsRefreshScheduler {
@@ -17,7 +20,9 @@ object NewsRefreshScheduler {
     fun scheduleNewsRefresh(workManager: WorkManager) {
         val workRequest = PeriodicWorkRequestBuilder<NewsRefreshWorker>(
             3,
-            TimeUnit.HOURS
+            TimeUnit.HOURS,
+            PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS,
+            TimeUnit.MILLISECONDS
         ).setInitialDelay(
             3,
             TimeUnit.HOURS
@@ -25,6 +30,10 @@ object NewsRefreshScheduler {
             Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
+        ).setBackoffCriteria(
+            BackoffPolicy.EXPONENTIAL,
+            WorkRequest.MIN_BACKOFF_MILLIS,
+            TimeUnit.MILLISECONDS
         )
             .build()
 
@@ -37,12 +46,12 @@ object NewsRefreshScheduler {
 
     /** logic to run scheduler once a day at 7 AM
 
-       val now = LocalDateTime.now()
+    val now = LocalDateTime.now()
 
-       val scheduledTime = now.toLocalDate()
-           .plusDays(1)
-           .atTime(7, 0)
+    val scheduledTime = now.toLocalDate()
+    .plusDays(1)
+    .atTime(7, 0)
 
-       val timeDifference = Duration.between(now, scheduledTime)
+    val timeDifference = Duration.between(now, scheduledTime)
      **/
 }
