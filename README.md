@@ -50,7 +50,29 @@ The app strictly follows the **Single Source of Truth** principle:
 
 ## 📂 Project Structure
 
-<pre> ```text com.maxi.newscleanarchitecture │ ├── common/ # Common utilities, helpers, Resource wrapper │ ├── data/ # Data layer │ ├── local/ # Room database, entities, DAO, utilities │ ├── remote/ # Retrofit API, DTOs, Interceptors, utilities │ └── repository/ # DefaultNewsRepository implementation │ ├── domain/ # Domain layer │ ├── model/ # Business/domain models │ ├── repository/ # Repository interface (abstraction) │ └── usecase/ # Use cases (business logic) │ ├── ui/ # Presentation layer │ └── news/ # News screen, ViewModel, Adapter │ ├── di/ # Hilt modules └── worker/ # NewsSyncWorker for WorkManager ``` </pre>
+## Project Structure
+
+```
+com.maxi.newscleanarchitecture
+│
+├── common/                 # Common utilities, helpers, Resource wrapper
+│
+├── data/                   # Data layer
+│   ├── local/              # Room database, entities, DAO, utilities
+│   ├── remote/             # Retrofit API, DTOs, Interceptors, utilities
+│   └── repository/         # DefaultNewsRepository implementation
+│
+├── domain/                 # Domain layer
+│   ├── model/              # Business/domain models
+│   ├── repository/         # Repository interface (abstraction)
+│   └── usecase/            # Use cases (business logic)
+│
+├── ui/                     # Presentation layer
+│   └── news/               # News screen, ViewModel, Adapter
+│
+├── di/                     # Hilt modules
+└── worker/                 # NewsSyncWorker for WorkManager
+```
 
 ---
 
